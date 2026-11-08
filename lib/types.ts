@@ -1,11 +1,12 @@
 export type UserRole = 'user' | 'admin'
 
 export type BatchStatus =
-  | 'registered'
-  | 'in_distribution'
-  | 'delivered'
-  | 'recalled'
-  | 'revoked'
+ export function isBatchStatus(value: unknown): value is BatchStatus {
+  return (
+    typeof value === 'string' &&
+    ['registered', 'in_distribution', 'delivered', 'recalled', 'revoked'].includes(value)
+  )
+}
 
 /** Statuses a business owner may set themselves. */
 export const OWNER_STATUSES: BatchStatus[] = [
