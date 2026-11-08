@@ -1,10 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
-/**
- * Refreshes the Supabase session on every matched request and returns the
- * current user so the middleware can protect business routes.
- */
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request })
 
@@ -16,19 +12,27 @@ export async function updateSession(request: NextRequest) {
         getAll() {
           return request.cookies.getAll()
         },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
+        setAll(
+          cookiesToSet: {
+            name: string
+            value: string
+            options?: any
+          }[],
+        ) {
+          cookiesToSet.forEach(({ name, value }) => {
+            request.cookies.set(name, value)
+          })
+
           supabaseResponse = NextResponse.next({ request })
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options),
-          )
+
+          cookiesToSet.forEach(({ name, value, options }) => {
+            supabaseResponse.cookies.set(name, value, options)
+          })
         },
       },
     },
   )
 
-  // Do not run code between createServerClient and getUser() — a tiny
-  // mismatch can make it impossible to keep the user logged in.
   const {
     data: { user },
   } = await supabase.auth.getUser()
@@ -39,8 +43,15 @@ export async function updateSession(request: NextRequest) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
     url.searchParams.set('next', request.nextUrl.pathname)
-    return { response: NextResponse.redirect(url), user: null }
+
+    return {
+      response: NextResponse.redirect(url),
+      user: null,
+    }
   }
 
-  return { response: supabaseResponse, user }
+  return {
+    response: supabaseResponse,
+    user,
+  }
 }
