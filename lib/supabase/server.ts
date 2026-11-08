@@ -1,29 +1,65 @@
+
 import { createServerClient } from '@supabase/ssr'
-import { cookies } from 'next/headers'
+import { NextResponse, type NextRequest } from 'next/server'
 
-/** Cookie-based Supabase client for use in server components and server actions. */
-export function createClient() {
-  const cookieStore = cookies()
+/**
+ * Refreshes the Supabase session on every matched request
+ * and returns the current user.
+ */
+export async function updateSession(request: NextRequest) {
+  let supabaseResponse = NextResponse.next({ request })
 
-  return createServerClient(
+  const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         getAll() {
-          return cookieStore.getAll()
+          return request.cookies.getAll()
         },
-        setAll(cookiesToSet) {
-          try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options),
-            )
-          } catch {
-            // Called from a server component render pass — the middleware
-            // refreshes the session so cookies stay valid.
-          }
+
+        setAll(
+          cookiesToSet: {
+            name: string
+            value: string
+            options?: any
+          }[],
+        ) {
+          cookiesToSet.forEach(({ name, value }) => {
+            request.cookies.set(name, value)
+          })
+
+          supabaseResponse = NextResponse.next({ request })
+
+          cookiesToSet.forEach(({ name, value, options }) => {
+            supabaseResponse.cookies.set(name, value, options)
+          })
         },
       },
     },
   )
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  const isProtected =
+    request.nextUrl.pathname.startsWith('/dashboard')
+
+  if (isProtected && !user) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/login'
+    url.searchParams.set('next', request.nextUrl.pathname)
+
+    return {
+      response: NextResponse.redirect(url),
+      user: null,
+    }
+  }
+
+  return {
+    response: supabaseResponse,
+    user,
+  }
 }
+
