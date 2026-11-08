@@ -1,14 +1,19 @@
 export type UserRole = 'user' | 'admin'
 
 export type BatchStatus =
- export function isBatchStatus(value: unknown): value is BatchStatus {
+  | 'registered'
+  | 'in_distribution'
+  | 'delivered'
+  | 'recalled'
+  | 'revoked'
+
+export function isBatchStatus(value: unknown): value is BatchStatus {
   return (
     typeof value === 'string' &&
     ['registered', 'in_distribution', 'delivered', 'recalled', 'revoked'].includes(value)
   )
 }
 
-/** Statuses a business owner may set themselves. */
 export const OWNER_STATUSES: BatchStatus[] = [
   'registered',
   'in_distribution',
@@ -88,3 +93,4 @@ export interface Report {
 export interface EventWithBatch extends BatchEvent {
   batches: { id: string; batch_code: string } | null
 }
+  
