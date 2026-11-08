@@ -1,5 +1,4 @@
-import { createHash } from 'crypto'
-
+import { createHash, randomUUID } from 'crypto'
 export interface BatchHashInput {
   batchCode: string
   producerName: string
