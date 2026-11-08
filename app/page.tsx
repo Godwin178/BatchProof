@@ -185,7 +185,98 @@ export default function LandingPage() {
           ))}
         </div>
       </section>
+      {/* BatchProof demos */}
+      <section id="demos" className="bg-indigo-50 py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <h2 className="text-3xl font-bold text-slate-900">
+            Explore BatchProof demos
+          </h2>
+          <p className="mt-3 text-slate-600">
+            See how batch traceability and public verification work in practice.
+          </p>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2">
+            <article className="rounded-2xl border border-slate-200 bg-white p-6">
+              <p className="text-sm font-semibold text-indigo-600">AFRICA DEMO</p>
+              <h3 className="mt-2 text-xl font-bold text-slate-900">
+                West African Agro Foods
+              </h3>
+              <p className="mt-2 text-slate-600">
+                Premium Cashew Nuts · Batch BP-AFR-001
+              </p>
+              <p className="mt-3 text-sm text-slate-500">
+                Example batch showing product origin, dates and verification history.
+              </p>
+              <a href="https://batchproof-demo-godwin178.vercel.app/africa"
+                className="mt-5 inline-block font-semibold text-indigo-600">
+                Explore Africa demo →
+              </a>
+            </article>
+            <article className="rounded-2xl border border-slate-200 bg-white p-6">
+              <p className="text-sm font-semibold text-indigo-600">EUROPE DEMO</p>
+              <h3 className="mt-2 text-xl font-bold text-slate-900">
+                EuroHarvest Foods
+              </h3>
+              <p className="mt-2 text-slate-600">
+                Extra Virgin Olive Oil · Batch BP-EUR-001
+              </p>
+              <p className="mt-3 text-sm text-slate-500">
+                Example batch demonstrating traceability and public verification.
+              </p>
+              <a href="https://batchproof-demo-godwin178.vercel.app/europe"
+                className="mt-5 inline-block font-semibold text-indigo-600">
+                Explore Europe demo →
+              </a>
+            </article>
+          </div>
+          <p className="mt-6 text-xs text-slate-500">
+            These are simulated demonstration records, not real business records
+            or live blockchain transactions.
+          </p>
+        </div>
+      </section>
 
+      {/* Grant funding */}
+      <section id="funding" className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <div className="rounded-2xl bg-slate-900 p-8 sm:p-10">
+          <p className="text-sm font-semibold text-indigo-300">GRANT FUNDING</p>
+          <h2 className="mt-3 text-3xl font-bold text-white">
+            Help us build more transparent supply chains
+          </h2>
+          <p className="mt-4 text-4xl font-bold text-white">$16,000</p>
+          <p className="mt-3 max-w-2xl text-slate-300">
+            BatchProof is seeking $16,000 in grant support to strengthen the
+            platform and support early business pilots.
+          </p>
+          <ul className="mt-6 list-disc space-y-2 pl-5 text-sm text-slate-300">
+            <li>Product development and new features</li>
+            <li>Security testing and platform reliability</li>
+            <li>Hosting and technical infrastructure</li>
+            <li>Business pilot onboarding and support</li>
+            <li>Documentation, education and ecosystem outreach</li>
+          </ul>
+          <a href="mailto:okhikugodwin123@gmail.com?subject=BatchProof%20Grant%20Funding"
+            className="mt-8 inline-block rounded-lg bg-white px-6 py-3 font-semibold text-indigo-700">
+            Discuss grant support
+          </a>
+        </div>
+      </section>
+
+      {/* Support BatchProof */}
+      <section id="support" className="bg-indigo-50 py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
+          <h2 className="text-3xl font-bold text-slate-900">
+            Support BatchProof
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-slate-600">
+            We welcome businesses interested in pilot testing, grant partners,
+            sponsors and technology ecosystem collaborators.
+          </p>
+          <a href="mailto:okhikugodwin123@gmail.com?subject=Support%20BatchProof"
+            className="mt-7 inline-block rounded-lg bg-indigo-600 px-6 py-3 font-semibold text-white">
+            Contact the BatchProof team
+          </a>
+        </div>
+      </section>
       {/* Blockchain note */}
       <section className="bg-slate-900 py-16 sm:py-20">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:items-center">
